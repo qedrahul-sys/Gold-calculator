@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Price Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff8e1;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    h2 {
+      color: #bfa000;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .result {
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #4a4a4a;
+      text-align: center;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ffcc00;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #e6b800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Gold Price Calculator</h2>
+
+    <label for="pricePerGram">Gold Price per Gram (₹):</label>
+    <input type="number" id="pricePerGram" step="0.01">
+
+    <label for="grams">Weight (in Grams):</label>
+    <input type="number" id="grams" step="0.01">
+
+    <label for="makingCharge">Making Charge (%):</label>
+    <input type="number" id="makingCharge" step="0.01" value="9">
+
+    <label for="gst">GST (%):</label>
+    <input type="number" id="gst" step="0.01" value="3">
+
+    <button onclick="calculateTotal()">Calculate Total</button>
+
+    <div class="result" id="totalDisplay">Total Price: ₹0.00</div>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const pricePerGram = parseFloat(document.getElementById('pricePerGram').value) || 0;
+      const grams = parseFloat(document.getElementById('grams').value) || 0;
+      const makingCharge = parseFloat(document.getElementById('makingCharge').value) || 0;
+      const gst = parseFloat(document.getElementById('gst').value) || 0;
+
+      const goldCost = pricePerGram * grams;
+      const makingCost = (goldCost * makingCharge) / 100;
+      const subtotal = goldCost + makingCost;
+      const gstAmount = (subtotal * gst) / 100;
+      const total = subtotal + gstAmount;
+
+      document.getElementById('totalDisplay').innerText = `Total Price: ₹${total.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
